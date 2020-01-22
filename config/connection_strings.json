@@ -1,0 +1,9 @@
+{
+    "local": {
+        "database": "accubits_ivr",
+        "username": "root",
+        "dialect": "mysql",
+        "password": "root",
+        "host": "localhost"
+    }
+}

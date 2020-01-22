@@ -1,0 +1,23 @@
+{
+    "userCreation": {
+        "success": "User created successfully",
+        "exists": "User already exists!"
+    }, 
+    "invalidUser":"Username or password is incorrect",
+    "internalError": "internal error occurred",
+    "loginSuccess":"Login successful",
+    "forgotPasswordSuccess":"We have sent an email with further instructions",
+    "deleteSuccess":"Profile deleted successfully",
+    "blockSuccess":"User has been blocked successfully",
+    "passwordMismatch":"Password doesn't match",
+    "passwordUpdate":"Password updated successfully",
+    "passwordUpdateError":"Password updation error, Please try again",
+    "incorrectPasswordError":"Current password is incorrect",
+    "invalidToken":"Token is invalid",
+    "passwordResetSuccess":"Password reset completed. Please login with new password",
+    "imageSizeExceed":"Image size has been exceeded the limit",
+    "profileUpdated":"Profile has been updated successfully",
+    "profileUpdatedError":"Profile updation error",
+    "invalidId":"Invalid id is provided",
+    "unBlockSuccess":"User has been unblocked successfully"
+}

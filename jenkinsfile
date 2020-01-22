@@ -1,0 +1,46 @@
+node {
+
+    stage("clone_repo"){
+     git branch: "master", credentialsId: 'Arunjayakumar-accubits-gitlab', url: 'https://gitlab.com/accubits/nodejs-jenkins.git'
+    }
+
+    stage("dependency_install") {
+        checkout scm
+        sh 'docker run --rm  --volume /home/arun/softs/jenkins/jenkins_data/workspace/nodejs-express:/app --workdir /app node:12.0 npm install'
+    }
+    stage("pre_test") {
+
+         sh 'docker run --rm  --volume /home/arun/softs/jenkins/jenkins_data/workspace/nodejs-express:/app --workdir /app node:12.0 npm run pretest'
+    }
+
+    stage("unit_test") {
+
+        sh 'docker run --rm  --volume /home/arun/softs/jenkins/jenkins_data/workspace/nodejs-express:/app --workdir /app node:12.0 npm run test'
+    }
+
+
+
+    stage("deploy"){
+script {
+  sshPublisher(
+   continueOnError: false, failOnError: true,
+   publishers: [
+    sshPublisherDesc(
+     configName: "Staging 2",
+     verbose: true,
+     transfers: [
+      sshTransfer(
+       sourceFiles: "**/*",
+       //removePrefix: "/home/dev/test-proj",
+       remoteDirectory: "",
+       execCommand: "ls && cd /home/dev/test-proj && ls && /home/dev/.nvm/versions/node/v10.0.0/bin/pm2 startOrRestart pm2.json"
+      )
+     ])
+   ])
+ }
+
+    }
+
+
+
+}
