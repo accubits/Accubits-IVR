@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   app:
-    container_name: mls-backend
+    container_name: ivr-backend
     build: ./
     ports:
       - "3000:3000"
@@ -20,7 +20,7 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: 'lotteryStore'
+      MYSQL_DATABASE: 'accubits_ivr'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'root'
