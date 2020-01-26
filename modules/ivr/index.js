@@ -1,3 +1,9 @@
+const {
+    getNumber
+} = require("../number/number-service")
+const {
+    getIVRs
+} = require('./ivr-service')
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
 
 
@@ -13,17 +19,16 @@ const welcome = async (req, res, next) => {
             method: 'POST',
         });
 
+
+        const numberData = await getNumber(req.body.Called)
+
+        let welcomeMsg = numberData.welcomeMessage;
+        let ivrMsg = numberData.ivrMessage;
+        let endMsg = "Press 9 to repeat the menu."
+        var introMsg = welcomeMsg + " " + ivrMsg + " " + endMsg;
+
         gather.say(
-            'Thank you for calling Accubits Technologies. If you know your party’s extension, please dial it at any time. ' +
-            'To speak with our sales representative,   press 1 ,' +
-            'To speak with Ops,   press 2 ,' +
-            'To speak with finances,   press 3 ,' +
-            'To reach the HR department,   press 4 ,' +
-            'To reach the marketing department,   press 5 ,' +
-            'To reach the research and development,   press 6 ,' +
-            'To speak with our support team,   press 7 ,' +
-            'For general queries,   press 0 ,' +
-            'Press 9 to repeat the menu.', {
+            introMsg, {
                 voice: 'woman',
                 language: 'en-US'
             }
@@ -39,29 +44,26 @@ const welcome = async (req, res, next) => {
 const menu = async (req, res, next) => {
 
     const digit = req.body.Digits;
+    const phone = req.body.Called;
+    console.log(req.body)
+    const getIVRNumbers = await getIVRs(phone, digit)
 
-    const optionActions = {
-        '1': '+919400974733',
-        '2': '+919400974733',
-        '3': '+919400974733',
-        '4': '+919400974733',
-        '5': '+919400974733',
-        '6': '+919400974733',
-        '7': '+919400974733',
-        '0': '+919400974733,'
-    };
 
-    if (optionActions[digit] && digit != '9') {
+    if (getIVRNumbers.dataValues.userInfo.phoneNo && digit != '9') {
         const twiml = new VoiceResponse();
         twiml.dial(optionActions[digit]);
         return res.send(twiml.toString());
     }
 
-    return res.send(redirectWelcome());
+    let ivrMsg = getIVRNumbers.dataValues.numberInfo.ivrMessage;
+    let endMsg = "Press 9 to repeat the menu."
+    var menuMsg = ivrMsg + " " + endMsg;
+
+    return res.send(redirectWelcome(menuMsg));
 
 }
 
-function redirectWelcome() {
+function redirectWelcome(menuMsg) {
     const voiceResponse = new VoiceResponse();
 
     const gather = voiceResponse.gather({
@@ -71,16 +73,8 @@ function redirectWelcome() {
     });
 
     gather.say(
-        'To speak with our sales representative,   press 1 ,' +
-        'To speak with Ops,   press 2 ,' +
-        'To speak with finances,   press 3 ,' +
-        'To reach the HR department,   press 4 ,' +
-        'To reach the marketing department,   press 5 ,' +
-        'To reach the research and development,   press 6 ,' +
-        'To speak with our support team,   press 7 ,' +
-        'For general queries,   press 0 ,' +
-        'Press 9 to repeat the menu.', {
-            voice: 'man',
+        menuMsg, {
+            voice: 'woman',
             language: 'en-US'
         }
     );

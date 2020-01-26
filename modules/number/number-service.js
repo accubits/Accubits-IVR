@@ -18,7 +18,19 @@ const addPhoneNumber = async params => {
     return data
 }
 
+const getNumber = async (phoneNo) => {
+    console.log(phoneNo)
+    const data = await number.findOne({
+        where: {
+            phoneNo: phoneNo
+        },
+        raw: true
+    })
+    return data
+}
+
 module.exports = {
     isValidNumber,
-    addPhoneNumber
+    addPhoneNumber,
+    getNumber
 }
