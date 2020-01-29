@@ -49,9 +49,13 @@ const menu = async (req, res, next) => {
     const getIVRNumbers = await getIVRs(phone, digit)
 
 
-    if (getIVRNumbers.dataValues.userInfo.phoneNo && digit != '9') {
+    if (getIVRNumbers.length && digit != '9') {
         const twiml = new VoiceResponse();
-        twiml.dial(optionActions[digit]);
+        const dial = twiml.dial();
+
+        getIVRNumbers.forEach(num => {
+            dial.number(num.dataValues.userInfo.phoneNo)
+        });
         return res.send(twiml.toString());
     }
 

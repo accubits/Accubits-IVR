@@ -21,7 +21,7 @@ const addOption = async params => {
 }
 
 const getIVRs = async (phoneNo, digit) => {
-    const data = await ivr.findOne({
+    const data = await ivr.findAll({
         include: [{
                 attributes:['name','ivrMessage'],
                 model: number,
