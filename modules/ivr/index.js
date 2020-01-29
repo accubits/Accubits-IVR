@@ -25,7 +25,7 @@ const welcome = async (req, res, next) => {
         let welcomeMsg = numberData.welcomeMessage;
         let ivrMsg = numberData.ivrMessage;
         let endMsg = "Press 9 to repeat the menu."
-        var introMsg = welcomeMsg + " " + ivrMsg + " " + endMsg;
+        let introMsg = welcomeMsg + " " + ivrMsg + " " + endMsg;
 
         gather.say(
             introMsg, {
@@ -45,7 +45,6 @@ const menu = async (req, res, next) => {
 
     const digit = req.body.Digits;
     const phone = req.body.Called;
-    console.log(req.body)
     const getIVRNumbers = await getIVRs(phone, digit)
 
 
