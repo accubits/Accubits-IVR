@@ -1,6 +1,10 @@
 const ivr = require("../../models/ivr");
 const number = require("../../models/number");
 const user = require("../../models/user");
+const {
+    Op,col
+} = require('sequelize')
+
 
 
 const isValidOrderNo = async (orderNo) => {
@@ -20,10 +24,10 @@ const addOption = async params => {
     return data
 }
 
-const getIVRs = async (phoneNo, digit) => {
+const getIVRs = async (phoneNo, digit, currentTime) => {
     const data = await ivr.findAll({
         include: [{
-                attributes:['name','ivrMessage'],
+                attributes: ['name', 'ivrMessage'],
                 model: number,
                 as: 'numberInfo',
                 where: {
@@ -33,13 +37,38 @@ const getIVRs = async (phoneNo, digit) => {
                 }
             },
             {
-                attributes:['phoneNo'],
+                attributes: ['phoneNo'],
                 model: user,
                 as: 'userInfo',
             }
         ],
         where: {
-            selectNo: digit
+            selectNo: digit,
+            [Op.or]: [{
+                startAt: {
+                    [Op.gt]: col('endAt')
+                },
+                    [Op.or]: [{
+                            startAt: {
+                                [Op.lte]: currentTime
+                            }
+                        },
+                        {
+                            endAt: {
+                                [Op.gte]: currentTime
+                            }
+                        }
+                    ]
+                },
+                {
+                    startAt: {
+                        [Op.lte]: currentTime
+                    },
+                    endAt: {
+                        [Op.gte]: currentTime
+                    }
+                }
+            ]
         },
         order: [
             ['orderNo', 'ASC']

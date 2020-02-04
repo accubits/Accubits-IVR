@@ -1,3 +1,4 @@
+const moment = require('moment')
 const {
     getNumber
 } = require("../number/number-service")
@@ -45,7 +46,8 @@ const menu = async (req, res, next) => {
 
     const digit = req.body.Digits;
     const phone = req.body.Called;
-    const getIVRNumbers = await getIVRs(phone, digit)
+    let currentTime = moment().tz('Asia/Kolkata').format("HH:mm:ss")
+    const getIVRNumbers = await getIVRs(phone, digit, currentTime)
 
 
     if (getIVRNumbers.length && digit != '9') {

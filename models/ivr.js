@@ -12,6 +12,8 @@ const ivr = sequelize.define('ivr', {
   numberId: Sequelize.BIGINT,
   userId: Sequelize.BIGINT,
   selectNo: Sequelize.BIGINT,
+  startAt: Sequelize.TIME,
+  endAt: Sequelize.TIME,
   orderNo: Sequelize.TINYINT
 })
 
