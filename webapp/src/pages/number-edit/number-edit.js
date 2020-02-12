@@ -12,9 +12,10 @@ const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
     },
+
 }));
 
-export default function NumbersList() {
+export default function NumberEdit() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
