@@ -103,7 +103,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Dashboard() {
+export default function UsersList() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {

@@ -1,11 +1,11 @@
 import React from 'react';
 
 import './App.scss';
-import Dashboard from './pages/dashboard/dashboard';
+import UsersList from './pages/users-list/users-list';
 
 function App() {
   return (
-    <Dashboard />
+    <UsersList />
   );
 }
 
