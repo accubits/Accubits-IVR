@@ -69,7 +69,7 @@ const headCells = [
     { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
 ];
 
-function UsersHead(props) {
+function NumbersHead(props) {
     const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
     const createSortHandler = property => event => {
         onRequestSort(event, property);
@@ -112,7 +112,7 @@ function UsersHead(props) {
     );
 }
 
-UsersHead.propTypes = {
+NumbersHead.propTypes = {
     classes: PropTypes.object.isRequired,
     numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
@@ -142,7 +142,7 @@ const useToolbarStyles = makeStyles(theme => ({
     },
 }));
 
-const UsersToolbar = props => {
+const NumbersToolbar = props => {
     const classes = useToolbarStyles();
     const { numSelected } = props;
 
@@ -158,7 +158,7 @@ const UsersToolbar = props => {
         </Typography>
             ) : (
                     <Typography className={classes.title} variant="h6" id="tableTitle">
-                        Users
+                        Numbers
         </Typography>
                 )}
 
@@ -179,7 +179,7 @@ const UsersToolbar = props => {
     );
 };
 
-UsersToolbar.propTypes = {
+NumbersToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
@@ -207,7 +207,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Users() {
+export default function Numbers() {
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
@@ -271,7 +271,7 @@ export default function Users() {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <UsersToolbar numSelected={selected.length} />
+                <NumbersToolbar numSelected={selected.length} />
                 <TableContainer>
                     <Table
                         className={classes.table}
@@ -279,7 +279,7 @@ export default function Users() {
                         size={dense ? 'small' : 'medium'}
                         aria-label="enhanced table"
                     >
-                        <UsersHead
+                        <NumbersHead
                             classes={classes}
                             numSelected={selected.length}
                             order={order}
