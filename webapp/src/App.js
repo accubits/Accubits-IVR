@@ -173,15 +173,16 @@ export default function App() {
               <Grid item xs={12}>
                 <Paper className={fixedHeightPaper}>
                   <Switch>
-                    <Route path="/">
+                    <Route path="/users">
                       <UsersList />
-                    </Route>
-                    <Route path="/edit">
-                      <NumberEdit />
                     </Route>
                     <Route path="/numbers">
                       <NumbersList />
                     </Route>
+                    <Route path="/">
+                      <NumberEdit />
+                    </Route>
+                   
                   </Switch>
                 </Paper>
               </Grid>

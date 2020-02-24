@@ -26,6 +26,8 @@ export default function UsersList() {
 
     return (
         <div className={classes.root}>
+            <h1>Users</h1>
+
             <Users />
         </div>
     );

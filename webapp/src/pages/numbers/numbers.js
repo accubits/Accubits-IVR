@@ -27,6 +27,7 @@ export default function NumbersList() {
 
     return (
         <div className={classes.root}>
+            <h1>Numbers</h1>
             <Numbers />
         </div>
     );

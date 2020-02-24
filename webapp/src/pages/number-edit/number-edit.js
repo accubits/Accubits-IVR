@@ -28,6 +28,8 @@ export default function NumberEdit() {
 
     return (
         <div className={classes.root}>
+            <h1>Edit Number</h1>
+
             <Numbers />
         </div>
     );
