@@ -1,23 +1,34 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { userLogin, userRegister } from './../../actions/user'
-import { Button } from 'antd'
 import Dashboard from '../../pages/Dashboard'
+import Login from '../../pages/Login'
+
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
 
 class VerifyUser extends Component {
     componentDidMount() {
         console.log(this.props)
     }
     render() {
-        if (this.props.user) {
-            return <Dashboard />
+        if (!this.props.user) {
+            return (
+                <Router>
+                    <Switch>
+                        <Route path="/">
+                            <Login />
+                        </Route>
+                    </Switch>
+                </Router>
+            )
         }
         return (
-            <div>
-                <Button onClick={() => {
-                    this.props.userLogin()
-                }}>Login</Button>
-            </div>
+            <Dashboard />
         )
     }
 }
