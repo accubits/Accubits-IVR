@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { userLogin, userRegister } from './../../actions/user'
 import Dashboard from '../../pages/Dashboard'
 import Login from '../../pages/Login'
+import Register from '../../pages/Register'
 
 
 import {
@@ -20,6 +21,9 @@ class VerifyUser extends Component {
             return (
                 <Router>
                     <Switch>
+                        <Route path="/register" >
+                            <Register />
+                        </Route>
                         <Route path="/">
                             <Login />
                         </Route>

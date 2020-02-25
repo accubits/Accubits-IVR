@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
 import { userLogin, userRegister } from './../actions/user'
+import { Link } from 'react-router-dom';
 
 class LoginForm extends Component {
 
@@ -47,7 +48,7 @@ class LoginForm extends Component {
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             Log in
               </Button>
-                        Or <a href="">register now!</a>
+                        Or  <Link to="/register">Register Now</Link>
                     </Form.Item>
                 </Form>
             </div>
