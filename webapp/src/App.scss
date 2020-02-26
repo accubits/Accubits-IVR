@@ -3,4 +3,14 @@
 }
 
 .login-form{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  .actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
