@@ -4,21 +4,26 @@ import { Table } from 'antd';
 
 const columns = [
     {
-        title: 'Name',
-        dataIndex: 'employee_name',
+        title: 'Email',
+        dataIndex: 'email',
         sorter: true,
         // render: name => `${name.first} ${name.last}`,
         width: '20%',
     },
     {
-        title: 'Gender',
-        dataIndex: 'employee_salary',
-        filters: [{ text: 'Male', value: 'male' }, { text: 'Female', value: 'female' }],
+        title: 'Name',
+        dataIndex: 'name',
+        // filters: [{ text: 'Male', value: 'male' }, { text: 'Female', value: 'female' }],
         width: '20%',
     },
     {
-        title: 'Email',
-        dataIndex: 'employee_age',
+        title: 'Username',
+        dataIndex: 'username',
+    },
+    {
+        title: 'Is Active',
+        dataIndex: 'id',
+        render: name => 'Available',
     },
 ];
 
@@ -52,7 +57,7 @@ export default class UsersList extends Component {
     fetch = (params = {}) => {
         console.log('params:', params);
         this.setState({ loading: true });
-        axios.get('http://dummy.restapiexample.com/api/v1/employees',
+        axios.get('https://jsonplaceholder.typicode.com/users',
             {
                 results: 10,
                 ...params,
@@ -63,7 +68,7 @@ export default class UsersList extends Component {
                 pagination.total = 200;
                 this.setState({
                     loading: false,
-                    data: response.data.data,
+                    data: response.data,
                     pagination,
                 });
             });
