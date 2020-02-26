@@ -1,15 +1,12 @@
-import { USER_LOGIN } from "../actions/user";
+import { USER_LOGIN_SUCCESS } from "../actions/user";
 
 export default function (state = false, action) {
-    const { type } = action;
+    const { type, data } = action;
+    console.log(action)
     switch (type) {
-        case USER_LOGIN:
-            return {
-                emailId: 'johns@accubits.com',
-                firstName: 'John',
-                lastName: "S"
-            };
+        case USER_LOGIN_SUCCESS:
+            return data;
         default:
-            return null;
+            return state;
     }
 }

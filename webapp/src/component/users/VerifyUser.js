@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { userLogin, userRegister } from './../../actions/user'
+import { userLogin, userRegister, loadUser } from './../../actions/user'
 import Dashboard from '../../pages/Dashboard'
 import Login from '../../pages/Login'
 import Register from '../../pages/Register'
@@ -14,7 +14,7 @@ import {
 
 class VerifyUser extends Component {
     componentDidMount() {
-        console.log(this.props)
+        this.props.loadUser();
     }
     render() {
         if (!this.props.user) {
@@ -43,7 +43,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     userLogin,
-    userRegister
+    userRegister,
+    loadUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(VerifyUser)

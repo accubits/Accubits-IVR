@@ -1,6 +1,13 @@
-import { rootReducer } from "./reducers";
-import { createStore } from "redux";
+import reducer from "./reducers";
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from 'redux-saga'
 
-const store = createStore(rootReducer);
 
-export default store;
+export default function configureStore(initialState) {
+    // Note: passing middleware as the last argument to createStore requires redux@>=3.1.0
+    const sagaMiddleware = createSagaMiddleware()
+    return {
+        ...createStore(reducer, initialState, applyMiddleware(sagaMiddleware)),
+        runSaga: sagaMiddleware.run
+    }
+}
