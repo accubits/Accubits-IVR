@@ -29,8 +29,17 @@ const getNumber = async (phoneNo) => {
     return data
 }
 
+
+const listNumbers = async () => {
+    const data = await number.findAll({
+        raw: true
+    })
+    return data
+}
+
 module.exports = {
     isValidNumber,
     addPhoneNumber,
-    getNumber
+    getNumber,
+    listNumbers
 }

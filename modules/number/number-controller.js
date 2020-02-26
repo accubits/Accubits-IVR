@@ -1,10 +1,34 @@
 const {
     validationResult
-  } = require('express-validator');
+} = require('express-validator');
 const {
     isValidNumber,
-    addPhoneNumber
+    addPhoneNumber,
+    listNumbers
 } = require("./number-service")
+
+const listNumbers = async (req, res) => {
+    try {
+        const result = await listNumbers(req.body);
+        if (result) {
+            const data = {
+                status: true,
+                data: result
+            }
+            res.status(200)
+            res.json(data)
+        } else {
+            const data = {
+                status: false,
+                data: responseMessages.internalError
+            }
+            res.status(500)
+            res.json(data)
+        }
+    } catch (e) {
+        next(e)
+    }
+}
 
 const addNumber = async (req, res, next) => {
 
@@ -59,5 +83,6 @@ const addNumber = async (req, res, next) => {
 }
 
 module.exports = {
-    addNumber
+    addNumber,
+    listNumbers
 }
