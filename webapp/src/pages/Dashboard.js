@@ -11,6 +11,7 @@ import {
     Link,
 } from "react-router-dom";
 import UsersList from './UsersList';
+import NumbersList from './NumbersList';
 
 
 
@@ -49,6 +50,12 @@ export default function Dashboard() {
                                     <Link className="nav-text" to="/" >Users</Link>
                                 </span>
                             </Menu.Item>
+                            <Menu.Item key="2">
+                                <Icon type="number" />
+                                <span className="nav-text">
+                                    <Link className="nav-text" to="/numbers" >Numbers</Link>
+                                </span>
+                            </Menu.Item>
                         </Menu>
                     </Sider>
                     <Layout>
@@ -58,6 +65,13 @@ export default function Dashboard() {
                         }}>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360, height: "100%" }}>
                                 <Switch>
+
+                                    <Route path="/users">
+                                        <UsersList />
+                                    </Route>
+                                    <Route path="/numbers">
+                                        <NumbersList />
+                                    </Route>
                                     <Route path="/">
                                         <UsersList />
                                     </Route>
