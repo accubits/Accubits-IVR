@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import { Layout, Menu, Icon } from 'antd';
 
+import { connect } from 'react-redux'
+import { userLogin, userRegister, loadUser } from './../actions/user'
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
@@ -17,18 +19,14 @@ import NumbersList from './NumbersList';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex',
-        height: '100vh'
-    },
-}));
 
-export default function Dashboard() {
-    const classes = useStyles();
-
+class Dashboard extends Component {
+render(){
     return (
-        <div className={classes.root}>
+        <div style={{
+            display: 'flex',
+            height: '100vh'
+        }}>
             <Router>
 
                 <Layout>
@@ -54,6 +52,15 @@ export default function Dashboard() {
                                 <Icon type="number" />
                                 <span className="nav-text">
                                     <Link className="nav-text" to="/numbers" >Numbers</Link>
+                                </span>
+                            </Menu.Item>
+                            <Menu.Item key="3" onClick={()=>{
+                                localStorage.clear();
+                                this.props.loadUser();
+                            }}>
+                                <Icon type="setting" />
+                                <span className="nav-text">
+                                    <Link className="nav-text" to="/" >Logout</Link>
                                 </span>
                             </Menu.Item>
                         </Menu>
@@ -85,4 +92,16 @@ export default function Dashboard() {
 
         </div >
     );
+                    }
 }
+
+
+const mapStateToProps = (state) => ({
+    user: state.user
+})
+
+const mapDispatchToProps = {
+    loadUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)

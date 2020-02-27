@@ -7,7 +7,8 @@ import Axios from 'axios';
 import {
     USER_LOGIN,
     USER_LOGIN_SUCCESS,
-    LOAD_USER
+    LOAD_USER,
+    USER_LOGIN_FAILED
 } from '../actions/user';
 import {
     toast
@@ -26,13 +27,18 @@ const axios = Axios.create({
 function* loadUser() {
     try {
         const token = localStorage.getItem('user');
-        if (token)
+        if (token) {
             yield put({
                 type: USER_LOGIN_SUCCESS,
                 data: {
                     token
                 }
             });
+        }else{
+            yield put({
+                type: USER_LOGIN_FAILED,
+            });
+        }
     } catch (error) {
 
     }
