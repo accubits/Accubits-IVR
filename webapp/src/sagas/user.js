@@ -1,9 +1,21 @@
-import { takeEvery, put, call } from 'redux-saga/effects';
+import {
+    takeEvery,
+    put,
+    call
+} from 'redux-saga/effects';
 import Axios from 'axios';
-import { USER_LOGIN, USER_LOGIN_SUCCESS, LOAD_USER } from '../actions/user';
-import { toast } from 'react-toastify';
+import {
+    USER_LOGIN,
+    USER_LOGIN_SUCCESS,
+    LOAD_USER
+} from '../actions/user';
+import {
+    toast
+} from 'react-toastify';
 
-import { API } from '../environment';
+import {
+    API
+} from '../environment';
 
 const axios = Axios.create({
     baseURL: API
@@ -14,11 +26,13 @@ const axios = Axios.create({
 function* loadUser() {
     try {
         const token = localStorage.getItem('user');
-        yield put({
-            type: USER_LOGIN_SUCCESS, data: {
-                token
-            }
-        });
+        if (token)
+            yield put({
+                type: USER_LOGIN_SUCCESS,
+                data: {
+                    token
+                }
+            });
     } catch (error) {
 
     }
@@ -31,7 +45,10 @@ function* loginUser(action) {
         const response = yield call(axios.post, 'user/login', action.data);
         console.log(response)
         localStorage.setItem('user', response.data.token)
-        yield put({ type: USER_LOGIN_SUCCESS, data: response.data });
+        yield put({
+            type: USER_LOGIN_SUCCESS,
+            data: response.data
+        });
     } catch (error) {
         if (error.response.data.errors) {
             error.response.data.errors.forEach(error => {
@@ -40,7 +57,7 @@ function* loginUser(action) {
                 })
             })
         } else if (error.response.data) {
-            toast(error.response.data, {
+            toast(error.response.data.data, {
                 type: "error"
             })
         }

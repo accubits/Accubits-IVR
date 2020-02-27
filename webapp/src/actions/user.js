@@ -1,3 +1,6 @@
+export const LIST_USERS = 'list_users';
+export const LIST_USERS_SUCCESS = 'list_users_success';
+
 export const LOAD_USER = 'load_user';
 export const USER_LOGIN = 'user_login';
 
@@ -21,4 +24,10 @@ export const userRegister = data => ({
 
 export const loadUser = () => ({
     type: LOAD_USER,
+})
+
+
+export const listUsers = data => ({
+    type: LIST_USERS,
+    data
 })
