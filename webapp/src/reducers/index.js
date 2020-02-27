@@ -1,14 +1,17 @@
 import { combineReducers } from 'redux'
 
 import user from './user';
-import list from './list';
+import users from './users';
+import numbers from './numbers';
 
 export default combineReducers({
     user,
-    list
+    users,
+    numbers
 });
 
 export const INITIAL_STATE = {
     user: null,
-    list: []
+    users: [],
+    numbers: []
 }

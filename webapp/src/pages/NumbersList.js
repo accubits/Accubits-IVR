@@ -2,38 +2,47 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Table } from 'antd';
 
+import { connect } from 'react-redux'
+import { listNumbers } from './../actions/numbers'
+
+
 const columns = [
     {
         title: 'Name',
         dataIndex: 'name',
         // filters: [{ text: 'Male', value: 'male' }, { text: 'Female', value: 'female' }],
-        width: '20%',
-    },
-    {
-        title: 'Username',
-        dataIndex: 'username',
+        width: '10%',
     },
     {
         title: 'Phone',
-        dataIndex: 'phone',
+        dataIndex: 'phoneNo',
+    },
+    {
+        title: 'IVR',
+        dataIndex: 'ivr',
+        render: ivr => ivr? 'Enabled':'Disabled',
+    },
+    {
+        title: 'IVR Message',
+        dataIndex: 'ivrMessage',
     },
     {
         title: 'Is Active',
-        dataIndex: 'id',
-        render: name => 'Available',
+        dataIndex: 'isActive',
+        width: '10%',
+        render: isActive => isActive? 'Active':'Inactive',
     },
 ];
 
 
-export default class NumbersList extends Component {
+ class NumbersList extends Component {
     state = {
-        data: [],
         pagination: {},
         loading: false,
     };
 
     componentDidMount() {
-        this.fetch();
+       this.props.listNumbers();
     }
 
     handleTableChange = (pagination, filters, sorter) => {
@@ -42,7 +51,7 @@ export default class NumbersList extends Component {
         this.setState({
             pagination: pager,
         });
-        this.fetch({
+        this.props.listNumbers({
             results: pagination.pageSize,
             page: pagination.current,
             sortField: sorter.field,
@@ -51,32 +60,12 @@ export default class NumbersList extends Component {
         });
     };
 
-    fetch = (params = {}) => {
-        console.log('params:', params);
-        this.setState({ loading: true });
-        axios.get('https://jsonplaceholder.typicode.com/users',
-            {
-                results: 10,
-                ...params,
-            }).then(response => {
-                const pagination = { ...this.state.pagination };
-                // Read total count from server
-                // pagination.total = data.totalCount;
-                pagination.total = 200;
-                this.setState({
-                    loading: false,
-                    data: response.data,
-                    pagination,
-                });
-            });
-    };
-
     render() {
         return (
             <Table
                 columns={columns}
                 rowKey={record => record.id}
-                dataSource={this.state.data}
+                dataSource={this.props.data}
                 pagination={this.state.pagination}
                 loading={this.state.loading}
                 onChange={this.handleTableChange}
@@ -84,3 +73,15 @@ export default class NumbersList extends Component {
         );
     }
 }
+
+
+
+const mapStateToProps = (state) => ({
+    data:state.numbers
+})
+
+const mapDispatchToProps = {
+    listNumbers
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NumbersList)

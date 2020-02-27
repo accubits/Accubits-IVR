@@ -83,7 +83,7 @@ class UsersList extends Component {
 
 
 const mapStateToProps = (state) => ({
-    data:state.list
+    data:state.users
 })
 
 const mapDispatchToProps = {

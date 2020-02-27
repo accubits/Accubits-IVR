@@ -18,6 +18,7 @@ import {
 import {
     API
 } from '../environment';
+import { LIST_NUMBERS_SUCCESS, LIST_NUMBERS } from '../actions/numbers';
 
 function* listUsers(action) {
     console.log('running saga', action.data)
@@ -52,6 +53,45 @@ function* listUsers(action) {
 
 }
 
+
+function* listNumbers(action) {
+    console.log('running saga', action.data)
+    try {
+
+        const axios = Axios.create({
+            baseURL: API,
+            headers: {
+                'Authorization': localStorage.getItem('user')
+            }
+        });
+
+        const response = yield call(axios.get, 'number/list', action.data);
+        console.log(response)
+        yield put({
+            type: LIST_NUMBERS_SUCCESS,
+            data: response.data.data
+        });
+    } catch (error) {
+        if (error.response.data.errors) {
+            error.response.data.errors.forEach(error => {
+                toast(error.msg, {
+                    type: "error"
+                })
+            })
+        } else if (error.response.data) {
+            toast(error.response.data.data, {
+                type: "error"
+            })
+        }
+    }
+
+}
+
 export function* watchListUsers() {
     yield takeEvery(LIST_USERS, listUsers)
+}
+
+
+export function* watchListNumbers() {
+    yield takeEvery(LIST_NUMBERS, listNumbers)
 }
