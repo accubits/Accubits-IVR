@@ -30,7 +30,7 @@ const getNumber = async (phoneNo) => {
 }
 
 
-const listNumbers = async () => {
+const listNumberServ = async () => {
     const data = await number.findAll({
         raw: true
     })
@@ -41,5 +41,5 @@ module.exports = {
     isValidNumber,
     addPhoneNumber,
     getNumber,
-    listNumbers
+    listNumberServ
 }

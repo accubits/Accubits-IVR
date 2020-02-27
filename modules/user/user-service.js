@@ -1,5 +1,14 @@
 const user = require('../../models/user')
 
+
+const listUserServ = async () => {
+  const data = await user.findAll({
+      raw: true
+  })
+  return data
+}
+
+
 const isValidUser = async (email) => {
   const data = await user.findOne({
     attributes: ['id'],
@@ -60,7 +69,7 @@ const userDetails = async params => {
 
 const singleUserDetails = async params => {
   const data = await user.findOne({
-    attributes: ['id', 'guid', 'emailId', 'firstName', 'lastName', 'phoneNo', 'zip', 'country', 'state', 'city', 'dob', 'streetAddress'],
+    attributes: ['id', 'guid', 'emailId', 'firstName', 'lastName', 'phoneNo'],
     where: {
       id: params
     }
@@ -79,5 +88,6 @@ module.exports = {
   updatePassword,
   resetPassword,
   userDetails,
-  singleUserDetails
+  singleUserDetails,
+  listUserServ
 }

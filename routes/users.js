@@ -12,6 +12,7 @@ const {
   profileUpdation,
   logout,
   getUserDetails,
+  listUsers
 } = require('../modules/user/user-controller')
 
 
@@ -25,6 +26,7 @@ router.post('/forgotPassword', validate('emailValidation'), forgotPassword)
 router.post('/passwordReset', validate('updatePassword'), passwordReset)
 router.get('/logout', logout)
 router.get('/getUserDetails', verifyUserToken, getUserDetails)
+router.get('/list', verifyUserToken, listUsers)
 
 
 module.exports = router

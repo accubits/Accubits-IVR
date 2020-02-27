@@ -13,6 +13,7 @@ const {
   resetPassword,
   userDetails,
   singleUserDetails,
+  listUserServ
 } = require('./user-service')
 const {
   signUpMail,
@@ -21,6 +22,28 @@ const {
 
 
 
+const listUsers = async (req, res) => {
+  try {
+      const result = await listUserServ(req.body);
+      if (result) {
+          const data = {
+              status: true,
+              data: result
+          }
+          res.status(200)
+          res.json(data)
+      } else {
+          const data = {
+              status: false,
+              data: responseMessages.internalError
+          }
+          res.status(500)
+          res.json(data)
+      }
+  } catch (e) {
+      next(e)
+  }
+}
 
 
 
@@ -499,5 +522,6 @@ module.exports = {
   profileUpdation,
   logout,
   verifyOtp,
-  getUser
+  getUser,
+  listUsers
 }

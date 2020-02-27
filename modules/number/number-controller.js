@@ -4,12 +4,12 @@ const {
 const {
     isValidNumber,
     addPhoneNumber,
-    listNumbers
+    listNumberServ
 } = require("./number-service")
 
 const listNumbers = async (req, res) => {
     try {
-        const result = await listNumbers(req.body);
+        const result = await listNumberServ(req.body);
         if (result) {
             const data = {
                 status: true,
